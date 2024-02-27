@@ -3,13 +3,11 @@ import '../App.css';
 
 const Droppable = () => {
 
-    const allowDrop = (event: React.DragEvent<HTMLDivElement>) => 
-    {
+    const allowDrop = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
     };
 
-    const drag = (event: React.DragEvent<HTMLElement>) => 
-    {
+    const drag = (event: React.DragEvent<HTMLElement>) => {
         event.dataTransfer.setData('text', event.currentTarget.id);
     };
 
@@ -17,13 +15,14 @@ const Droppable = () => {
     {
         event.preventDefault();
         const data = event.dataTransfer.getData('text');
-        console.log(data)
         const draggedElement = document.getElementById(data);
+        console.log(draggedElement)
         const target = event.target as HTMLElement;
 
-        if (draggedElement && target.classList.contains('block')) 
-        {
-            target.appendChild(draggedElement);
+        if (draggedElement && target.classList.contains('block')) {
+            // Clone the dragged element before appending it to the target
+            const clonedElement = draggedElement.cloneNode(true) as HTMLElement;
+            target.appendChild(clonedElement);
         }
         else
         {
@@ -41,14 +40,14 @@ const Droppable = () => {
                 </div>
 
                 <button id="drag1" draggable onDragStart={drag}>
-                    Button 1
+                    drag me1
                 </button>
                 <button id="drag2" draggable onDragStart={drag}>
-                    Button 2
+                    drag me2
                 </button>
 
                 <button id="drag3" draggable onDragStart={drag}>
-                    Button 3
+                    drag me3
                 </button>
             </div>
             <div id="div2" onDrop={drop} onDragOver={allowDrop}>
