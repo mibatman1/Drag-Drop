@@ -23,20 +23,6 @@ const DraggableElement=()=>
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => 
   {
     event.preventDefault();
-    // const container = event.currentTarget;
-    // const afterElement = getDragAfterElement(container, event.clientY);
-    // //console.log(afterElement)
-    // const draggable = document.querySelector('.dragging') as HTMLElement;
-    // const cloned=draggable.cloneNode(true) as HTMLElement;
-    // if(afterElement===null) 
-    // {
-    //   container.appendChild(draggable);
-    // } 
-    // else 
-    // {
-    //   container.insertBefore(draggable, afterElement);
-    // }
-    // cloned.classList.remove('dragging')
   }
 
   const getDragAfterElement = (container: HTMLDivElement, y: number): HTMLElement => 
