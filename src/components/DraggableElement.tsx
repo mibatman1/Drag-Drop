@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import '../index.css';
 
 const DraggableElement=()=>
 {
-  const [isElementDropped, setIsElementDropped] = useState(false);
   const handleDragStart = (event: React.DragEvent<HTMLElement>) => 
   {
     const target = event.target as HTMLElement;
@@ -66,24 +64,40 @@ const DraggableElement=()=>
     const container = event.currentTarget;
     const afterElement = getDragAfterElement(container, event.clientY);
     const draggable = document.querySelector('.dragging') as HTMLElement;
-    const cloned=draggable.cloneNode(true) as HTMLElement;
-    cloned.addEventListener('dragstart',()=>
+    if(!draggable.classList.contains('destination'))
     {
-      cloned.classList.add('dragging')
-    });
-    cloned.addEventListener('dragend',()=>
-    {
+      const cloned=draggable.cloneNode(true) as HTMLElement;
+      cloned.classList.add('destination');
+      cloned.addEventListener('dragstart',()=>
+      {
+        cloned.classList.add('dragging')
+      });
+      cloned.addEventListener('dragend',()=>
+      {
+        cloned.classList.remove('dragging')
+      });
+      if(afterElement===null) 
+      {
+        container.appendChild(cloned);
+      } 
+      else 
+      {
+        container.insertBefore(cloned, afterElement);
+      }
       cloned.classList.remove('dragging')
-    });
-    if(afterElement===null) 
-    {
-      container.appendChild(cloned);
-    } 
-    else 
-    {
-      container.insertBefore(cloned, afterElement);
     }
-    cloned.classList.remove('dragging')
+    else
+    {
+      if(afterElement===null) 
+      {
+        container.appendChild(draggable);
+      } 
+      else 
+      {
+        container.insertBefore(draggable, afterElement);
+      }
+    }
+    
   }
 
   return (
