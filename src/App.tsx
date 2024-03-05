@@ -1,10 +1,10 @@
-import Droppable from "./components/Droppable";
+import DraggableElement from "./components/DraggableElement";
 
 const App=()=>
 {
   return(
     <div>
-      <Droppable/>
+      <DraggableElement/>
     </div>
   )
 }
