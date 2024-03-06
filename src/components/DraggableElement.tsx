@@ -1,4 +1,7 @@
 import '../index.css';
+import HTMLtoJSON from '../utils/HTMLToJSON';
+import JSONToHTML from '../utils/JSONToHTML';
+import emailSender from '../utils/emailSender';
 
 const DraggableElement=()=>
 {
@@ -86,15 +89,30 @@ const DraggableElement=()=>
     
   }
 
+  const json=(val:any)=>
+  {
+    const s=document.getElementById(val);
+    let h:HTMLElement|null;
+
+    if(s)
+    {
+      h=HTMLtoJSON(s)
+      console.log(h)
+      console.log(JSONToHTML(h))
+    }
+    emailSender();
+  }
+
   return (
     <div className="main">
+      <button onClick={()=>json('c')}>JSON</button>
       <div className="container" onDragOver={handleDragOver}>
         <p className="draggable" draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>1</p>
         <p className="draggable" draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>2</p>
         <button className="draggable" draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}>Button 1</button>
         <img className='draggable' src='https://reactjs.org/logo-og.png' height='40px' alt='React Image' draggable onDragStart={handleDragStart} onDragEnd={handleDragEnd}/>
       </div>
-      <div className="containers" onDragOver={handleDragOver} onDrop={handleDrop}>
+      <div id= 'c' className="containers" onDragOver={handleDragOver} onDrop={handleDrop}>
 
       </div>
     </div>
